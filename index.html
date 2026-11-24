@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#100d0b" />
+  <meta name="description" content="Magic Coffee — a little peace in every cup. Discover handcrafted coffee in a warm, relaxing atmosphere." />
+  <title>Magic Coffee — A Little Peace in Every Cup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #100d0b; --surface: #19130f; --surface-2: #211913;
+      --cream: #f4eadb; --muted: #b7a797; --gold: #c99a62;
+      --gold-light: #e5bd8b; --line: rgba(229,189,139,.18);
+      --serif: "Playfair Display", Georgia, serif; --sans: "DM Sans", Arial, sans-serif;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 86px; }
+    body { background: var(--bg); color: var(--cream); font-family: var(--sans); line-height: 1.65; overflow-x: hidden; }
+    body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1; opacity: .16; background-image: radial-gradient(rgba(255,255,255,.12) .55px, transparent .55px); background-size: 5px 5px; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; }
+    .container { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+    .eyebrow { color: var(--gold-light); text-transform: uppercase; letter-spacing: .23em; font-size: .72rem; font-weight: 700; }
+    .section { padding: 108px 0; }
+    .section-head { max-width: 650px; margin-bottom: 48px; }
+    .section-head h2 { font: 600 clamp(2.25rem, 4vw, 3.7rem)/1.12 var(--serif); margin: 13px 0 16px; }
+    .section-head p { color: var(--muted); max-width: 540px; }
+    .gold { color: var(--gold-light); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 22px; border: 1px solid var(--gold); border-radius: 3px; font-size: .82rem; font-weight: 700; letter-spacing: .04em; transition: .3s ease; cursor: pointer; }
+    .btn-primary { background: var(--gold); color: #160f0a; }
+    .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); transform: translateY(-3px); box-shadow: 0 12px 30px #c99a6233; }
+    .btn-outline { color: var(--cream); background: transparent; }
+    .btn-outline:hover { background: #c99a621c; transform: translateY(-3px); }
+    /* Header */
+    .header { position: fixed; inset: 0 0 auto; z-index: 100; background: rgba(16,13,11,.82); border-bottom: 1px solid transparent; backdrop-filter: blur(16px); transition: .3s; }
+    .header.scrolled { border-color: var(--line); background: rgba(16,13,11,.96); }
+    .nav { height: 82px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; }
+    .brand-mark { width: 39px; height: 39px; display: grid; place-items: center; border: 1px solid var(--gold); border-radius: 50%; color: var(--gold-light); font: 600 1.1rem var(--serif); }
+    .brand-name { font: 600 1.3rem var(--serif); letter-spacing: .02em; }
+    .brand-name span { color: var(--gold-light); }
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+    .nav-links a { color: #d9cbbb; font-size: .78rem; transition: color .25s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-cta { padding: 10px 16px; font-size: .75rem; }
+    .menu-toggle { display: none; border: 1px solid var(--line); background: none; color: var(--cream); width: 42px; height: 42px; border-radius: 3px; cursor: pointer; font-size: 1.2rem; }
+    /* Hero */
+    .hero { min-height: 790px; height: min(100svh, 940px); position: relative; display: flex; align-items: center; isolation: isolate; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; z-index: -2; background: url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=2400&q=90") center 54%/cover no-repeat; transform: scale(1.04); animation: heroZoom 18s ease-in-out infinite alternate; }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(13,10,8,.94) 0%, rgba(13,10,8,.70) 43%, rgba(13,10,8,.12) 100%), linear-gradient(0deg, var(--bg), transparent 24%), linear-gradient(180deg, rgba(13,10,8,.18), transparent 35%); }
+    .hero-content { padding-top: 78px; max-width: 720px; }
+    .hero h1 { font: 600 clamp(3.5rem, 8vw, 7.2rem)/.98 var(--serif); letter-spacing: -.045em; margin: 24px 0; }
+    .hero h1 em { color: var(--gold-light); font-weight: 500; }
+    .hero-copy { max-width: 520px; color: #d5c7b8; font-size: 1rem; margin-bottom: 30px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; }
+    .hero-note { display: flex; align-items: center; gap: 14px; margin-top: 48px; color: var(--muted); font-size: .78rem; }
+    .hero-note::before { content: ""; width: 48px; height: 1px; background: var(--gold); }
+    .price-pill { position: absolute; right: max(6vw, calc((100vw - var(--max))/2)); bottom: 115px; width: 142px; height: 142px; display: grid; align-content: center; justify-items: center; border: 1px solid #e5bd8b99; border-radius: 50%; background: #17100bc9; backdrop-filter: blur(8px); box-shadow: 0 0 0 9px #e5bd8b12; transform: rotate(8deg); }
+    .price-pill small { color: var(--muted); text-transform: uppercase; letter-spacing: .16em; font-size: .62rem; }
+    .price-pill strong { font: 600 2.7rem var(--serif); color: var(--gold-light); }
+    .price-pill span { font-size: .65rem; color: var(--muted); }
+    .scroll-cue { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: #cdbca9; font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 9px; }
+    .scroll-cue i { display: block; width: 1px; height: 35px; background: linear-gradient(var(--gold), transparent); animation: pulse 1.7s infinite; }
+    /* Intro */
+    .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
+    .intro-image { position: relative; padding: 0 35px 35px 0; }
+    .intro-image img { width: 100%; height: 520px; object-fit: cover; filter: saturate(.88) contrast(1.04); }
+    .intro-image::after { content: ""; position: absolute; right: 0; bottom: 0; width: 68%; height: 68%; border: 1px solid var(--gold); z-index: -1; }
+    .intro-copy h2 { font: 600 clamp(2.5rem, 4.3vw, 4rem)/1.12 var(--serif); margin: 15px 0 22px; }
+    .intro-copy p { color: var(--muted); margin-bottom: 18px; }
+    .signature { margin-top: 28px; color: var(--gold-light); font: italic 1.35rem var(--serif); }
+    /* Features */
+    .features { background: #17110d; border-block: 1px solid var(--line); }
+    .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .feature { background: #17110d; padding: 35px 27px; transition: background .3s, transform .3s; }
+    .feature:hover { background: #211811; transform: translateY(-5px); }
+    .feature-icon { width: 47px; height: 47px; display: grid; place-items: center; border: 1px solid #c99a6255; color: var(--gold-light); font-size: 1.3rem; margin-bottom: 22px; border-radius: 50%; }
+    .feature h3 { font: 600 1.25rem var(--serif); margin-bottom: 9px; }
+    .feature p { color: var(--muted); font-size: .85rem; }
+    /* Menu */
+    .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+    .menu-card { background: var(--surface); border: 1px solid var(--line); overflow: hidden; transition: transform .35s, border-color .35s; }
+    .menu-card:hover { transform: translateY(-8px); border-color: #c99a6280; }
+    .menu-card img { width: 100%; height: 220px; object-fit: cover; transition: transform .7s, filter .7s; filter: saturate(.9) contrast(1.04); }
+    .menu-card:hover img { transform: scale(1.08); filter: saturate(1.12) contrast(1.06); }
+    .menu-image { overflow: hidden; position: relative; }
+    .menu-tag { position: absolute; top: 13px; left: 13px; background: #17100ddd; color: var(--gold-light); padding: 5px 10px; font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; }
+    .menu-info { padding: 21px; }
+    .menu-info h3 { font: 600 1.3rem var(--serif); }
+    .menu-info p { color: var(--muted); font-size: .8rem; min-height: 48px; margin: 8px 0 17px; }
+    .menu-bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 14px; }
+    .menu-price { color: var(--gold-light); font: 600 1.25rem var(--serif); }
+    .menu-price small { font: 400 .65rem var(--sans); color: var(--muted); }
+    .menu-plus { color: var(--gold-light); font-size: 1.3rem; }
+    /* Experience banner */
+    .experience { position: relative; min-height: 430px; display: grid; place-items: center; text-align: center; overflow: hidden; background: url("https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=2200&q=90") center/cover; }
+    .experience::before { content: ""; position: absolute; inset: 0; background: #100d0bce; }
+    .experience-content { position: relative; max-width: 760px; padding: 75px 24px; }
+    .experience h2 { font: 600 clamp(2.5rem, 5vw, 4.5rem)/1.1 var(--serif); margin: 17px 0; }
+    .experience p { color: #d0c1b1; margin-bottom: 26px; }
+    /* Reviews */
+    .reviews { background: #17110d; border-block: 1px solid var(--line); }
+    .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .review { padding: 30px; border: 1px solid var(--line); background: #1b1510; }
+    .stars { color: var(--gold-light); letter-spacing: .15em; font-size: .85rem; }
+    .review blockquote { color: #e0d4c7; font: 500 1.15rem/1.65 var(--serif); margin: 20px 0 25px; }
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+    .avatar { width: 39px; height: 39px; border-radius: 50%; display: grid; place-items: center; color: var(--gold-light); background: #39271b; font: 600 1rem var(--serif); }
+    .reviewer strong { display: block; font-size: .8rem; }
+    .reviewer span { color: var(--muted); font-size: .7rem; }
+    .review-note { color: var(--muted); font-size: .72rem; margin-top: 18px; }
+    /* FAQ */
+    .faq-wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; }
+    .faq-intro h2 { font: 600 clamp(2.5rem, 4vw, 3.8rem)/1.1 var(--serif); margin: 15px 0; }
+    .faq-intro p { color: var(--muted); }
+    .faq-list { border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-question { width: 100%; border: 0; background: none; color: var(--cream); text-align: left; padding: 22px 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font: 500 1.08rem var(--serif); }
+    .faq-question span:last-child { color: var(--gold-light); font: 400 1.4rem var(--sans); transition: transform .3s; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-answer p { color: var(--muted); font-size: .87rem; padding: 0 35px 20px 0; }
+    .faq-item.active .faq-question span:last-child { transform: rotate(45deg); }
+    /* Contact */
+    .contact { background: #17110d; border-top: 1px solid var(--line); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 75px; }
+    .contact h2 { font: 600 clamp(2.5rem, 4vw, 3.8rem)/1.1 var(--serif); margin: 14px 0 18px; }
+    .contact-copy > p { color: var(--muted); max-width: 460px; }
+    .contact-details { display: grid; gap: 20px; margin-top: 35px; }
+    .contact-detail { display: flex; gap: 15px; align-items: flex-start; }
+    .contact-detail .feature-icon { flex: 0 0 42px; width: 42px; height: 42px; margin: 0; font-size: 1rem; }
+    .contact-detail strong { display: block; font-size: .83rem; margin-bottom: 3px; }
+    .contact-detail span, .contact-detail a { color: var(--muted); font-size: .82rem; }
+    .contact-panel { background: #211811; border: 1px solid var(--line); padding: 34px; }
+    .contact-panel h3 { font: 600 1.65rem var(--serif); margin-bottom: 10px; }
+    .contact-panel p { color: var(--muted); font-size: .85rem; margin-bottom: 22px; }
+    .contact-panel .btn { width: 100%; margin-top: 10px; }
+    .hours { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--line); color: #dfd2c4; font-size: .83rem; }
+    .hours span:last-child { color: var(--gold-light); }
+    /* Footer */
+    footer { padding: 30px 0; background: #0c0908; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .footer-inner p { color: #8e7e70; font-size: .73rem; }
+    .socials { display: flex; gap: 18px; color: var(--muted); font-size: .78rem; }
+    .socials a:hover { color: var(--gold-light); }
+    .back-top { position: fixed; right: 22px; bottom: 22px; z-index: 50; width: 42px; height: 42px; border: 1px solid var(--gold); background: #17100ee8; color: var(--gold-light); cursor: pointer; opacity: 0; visibility: hidden; transition: .3s; }
+    .back-top.show { opacity: 1; visibility: visible; }
+    /* Motion */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @keyframes heroZoom { to { transform: scale(1.12); } }
+    @keyframes pulse { 50% { opacity: .35; transform: scaleY(.7); transform-origin: top; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
+    @media (max-width: 950px) {
+      .nav-links { gap: 18px; }
+      .menu-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .intro-grid { gap: 45px; }
+      .price-pill { right: 6%; bottom: 75px; }
+    }
+    @media (max-width: 720px) {
+      .container { width: min(100% - 36px, var(--max)); }
+      .section { padding: 78px 0; }
+      .nav { height: 72px; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-links { position: absolute; top: 71px; left: 0; right: 0; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 12px 24px 20px; background: #100d0bfa; border-bottom: 1px solid var(--line); }
+      .nav-links.open { display: flex; }
+      .nav-links a { display: block; padding: 12px 0; }
+      .nav-cta { display: inline-flex !important; width: max-content; margin-top: 8px; padding: 10px 16px !important; }
+      .hero { min-height: 760px; height: 92svh; max-height: 900px; }
+      .hero::before { background: linear-gradient(90deg, rgba(13,10,8,.92), rgba(13,10,8,.55)), linear-gradient(0deg, var(--bg), transparent 28%); }
+      .hero h1 { font-size: clamp(3.25rem, 15vw, 5.4rem); }
+      .hero-copy { font-size: .9rem; max-width: 420px; }
+      .price-pill { width: 105px; height: 105px; right: 25px; bottom: 85px; }
+      .price-pill strong { font-size: 2rem; }
+      .price-pill small { font-size: .52rem; }
+      .scroll-cue { display: none; }
+      .intro-grid, .faq-wrap, .contact-grid { grid-template-columns: 1fr; gap: 42px; }
+      .intro-image { max-width: 520px; }
+      .intro-image img { height: 390px; }
+      .review-grid { grid-template-columns: 1fr; }
+      .review { padding: 25px; }
+      .contact-panel { padding: 27px; }
+    }
+    @media (max-width: 460px) {
+      .menu-grid { grid-template-columns: 1fr; }
+      .menu-card img { height: 245px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .feature { padding: 24px 17px; }
+      .feature h3 { font-size: 1.05rem; }
+      .feature p { font-size: .77rem; }
+      .hero-actions .btn { width: 100%; }
+      .hero-note { margin-top: 32px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Magic Coffee home">
+        <span class="brand-mark">M</span><span class="brand-name">MAGIC <span>COFFEE</span></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#story">Our Story</a></li><li><a href="#features">Why Magic</a></li>
+        <li><a href="#menu">Our Coffee</a></li><li><a href="#reviews">Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li><li><a class="btn btn-primary nav-cta" href="#contact">Visit Us <span>↗</span></a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-bg"></div>
+      <div class="container">
+        <div class="hero-content reveal">
+          <div class="eyebrow">A warm place to slow down</div>
+          <h1>A little<br><em>peace</em> in<br>every cup.</h1>
+          <p class="hero-copy">জীবনের ব্যস্ততার মাঝে একটু থামুন। Magic Coffee-তে উপভোগ করুন দারুণ এক কাপ কফি, আর খুঁজে নিন নিজের ছোট্ট প্রশান্তির মুহূর্ত।</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#menu">Explore Our Coffee <span>↗</span></a>
+            <a class="btn btn-outline" href="#story">Discover Our Space</a>
+          </div>
+          <div class="hero-note">GOOD COFFEE. CALM MIND. HAPPY MOMENTS.</div>
+        </div>
+      </div>
+      <div class="price-pill"><small>Starting from</small><strong>৳59</strong><span>YOUR DAILY MAGIC</span></div>
+      <a class="scroll-cue" href="#story">Scroll to explore<i></i></a>
+    </section>
+
+    <section class="section" id="story">
+      <div class="container intro-grid">
+        <div class="intro-image reveal"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=90" alt="Warm and inviting coffee shop interior"></div>
+        <div class="intro-copy reveal">
+          <div class="eyebrow">More than just coffee</div>
+          <h2>Come for the coffee.<br><span class="gold">Stay for the feeling.</span></h2>
+          <p>আমরা বিশ্বাস করি, ভালো কফি শুধু স্বাদের বিষয় নয়—এটি নিজের জন্য একটু সময় বের করে নেওয়ারও একটি উপলক্ষ। তাই Magic Coffee-র প্রতিটি কোণ সাজানো হয়েছে আরাম, উষ্ণতা ও প্রশান্তির কথা ভেবে।</p>
+          <p>বন্ধুদের সঙ্গে গল্প, প্রিয় মানুষের সঙ্গে সুন্দর সময়, কিংবা একা বসে নিজের মতো থাকা—আপনার প্রতিটি মুহূর্তকে একটু বেশি সুন্দর করতেই আমাদের আয়োজন।</p>
+          <div class="signature">Your happy place, — Magic Coffee</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section features" id="features">
+      <div class="container">
+        <div class="section-head reveal"><div class="eyebrow">The Magic difference</div><h2>A space that feels like <span class="gold">a deep breath.</span></h2><p>শুধু কফি নয়, আমরা চাই আপনি এখানে এসে স্বস্তি অনুভব করুন।</p></div>
+        <div class="features-grid">
+          <article class="feature reveal"><div class="feature-icon">✧</div><h3>Peaceful Ambience</h3><p>নরম আলো, সুন্দর সাজসজ্জা আর আরামদায়ক পরিবেশ—মন ভালো করার ছোট্ট ঠিকানা।</p></article>
+          <article class="feature reveal"><div class="feature-icon">☕</div><h3>Freshly Made</h3><p>প্রতিটি কাপ তৈরি হয় যত্ন নিয়ে, যেন প্রতিটি চুমুকেই থাকে দারুণ এক অনুভূতি।</p></article>
+          <article class="feature reveal"><div class="feature-icon">♡</div><h3>Friendly on Budget</h3><p>ভালো কফি উপভোগ করতে বেশি খরচ নয়। কফির দাম শুরু মাত্র ৫৯ টাকা থেকে।</p></article>
+          <article class="feature reveal"><div class="feature-icon">❋</div><h3>Everyone Welcome</h3><p>আপনি একা আসুন কিংবা প্রিয়জনদের সঙ্গে—Magic Coffee সবার জন্য।</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="section-head reveal"><div class="eyebrow">Made with care</div><h2>Your next favourite <span class="gold">cup awaits.</span></h2><p>আপনার মুড অনুযায়ী বেছে নিন পছন্দের কফি। নিচের মেনু ও দাম প্রকাশের আগে আপনার আসল মেনু অনুযায়ী আপডেট করুন।</p></div>
+        <div class="menu-grid">
+          <article class="menu-card reveal"><div class="menu-image"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1000&q=90" alt="A cup of freshly brewed black coffee"><span class="menu-tag">Our classic</span></div><div class="menu-info"><h3>Classic Coffee</h3><p>Simple, comforting and full of character.</p><div class="menu-bottom"><div class="menu-price">৳59 <small>/ starting</small></div><span class="menu-plus">↗</span></div></div></article>
+          <article class="menu-card reveal"><div class="menu-image"><img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=1000&q=90" alt="Cappuccino with latte art"><span class="menu-tag">Smooth & creamy</span></div><div class="menu-info"><h3>Cappuccino</h3><p>A silky coffee moment with a creamy finish.</p><div class="menu-bottom"><div class="menu-price">Ask us <small>/ for price</small></div><span class="menu-plus">↗</span></div></div></article>
+          <article class="menu-card reveal"><div class="menu-image"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=1000&q=90" alt="Iced coffee served in a glass"><span class="menu-tag">Cool refreshment</span></div><div class="menu-info"><h3>Cold Coffee</h3><p>Chilled, refreshing and perfect for a sunny day.</p><div class="menu-bottom"><div class="menu-price">Ask us <small>/ for price</small></div><span class="menu-plus">↗</span></div></div></article>
+          <article class="menu-card reveal"><div class="menu-image"><img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=1000&q=90" alt="Rich chocolate mocha coffee"><span class="menu-tag">A little indulgence</span></div><div class="menu-info"><h3>Chocolate Mocha</h3><p>Rich chocolate notes meet your favourite coffee.</p><div class="menu-bottom"><div class="menu-price">Ask us <small>/ for price</small></div><span class="menu-plus">↗</span></div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience">
+      <div class="experience-content reveal"><div class="eyebrow">Take a moment for yourself</div><h2>Leave the rush outside.<br><span class="gold">Find your calm inside.</span></h2><p>এক কাপ কফি, পছন্দের মানুষ, আর নিজের মতো করে কাটানো কিছু সময়। আপনার অপেক্ষায় Magic Coffee।</p><a class="btn btn-primary" href="#contact">Plan Your Visit <span>↗</span></a></div>
+    </section>
+
+    <section class="section reviews" id="reviews">
+      <div class="container">
+        <div class="section-head reveal"><div class="eyebrow">Kind words, warm hearts</div><h2>Moments made <span class="gold">memorable.</span></h2><p>আপনাদের অভিজ্ঞতাই আমাদের অনুপ্রেরণা।</p></div>
+        <div class="review-grid">
+          <article class="review reveal"><div class="stars">★★★★★</div><blockquote>“The atmosphere feels so calm and welcoming. A lovely place to take a break and enjoy coffee.”</blockquote><div class="reviewer"><div class="avatar">R</div><div><strong>Customer Review</strong><span>Guest experience</span></div></div></article>
+          <article class="review reveal"><div class="stars">★★★★★</div><blockquote>“ভালো পরিবেশ, সুন্দর সাজসজ্জা আর কফির স্বাদ—বন্ধুদের সঙ্গে সময় কাটানোর জন্য দারুণ!”</blockquote><div class="reviewer"><div class="avatar">S</div><div><strong>Customer Review</strong><span>Guest experience</span></div></div></article>
+          <article class="review reveal"><div class="stars">★★★★★</div><blockquote>“A cozy little escape from a busy day. I love the peaceful vibe and friendly feel.”</blockquote><div class="reviewer"><div class="avatar">M</div><div><strong>Customer Review</strong><span>Guest experience</span></div></div></article>
+        </div>
+        <p class="review-note">নোট: এগুলো ডিজাইন দেখানোর জন্য নমুনা রিভিউ। প্রকাশের আগে প্রকৃত কাস্টমারের অনুমতিপ্রাপ্ত মতামত দিয়ে পরিবর্তন করুন।</p>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container faq-wrap">
+        <div class="faq-intro reveal"><div class="eyebrow">Good to know</div><h2>A few things you might <span class="gold">wonder.</span></h2><p>Magic Coffee-তে আসার আগে আপনার প্রয়োজনীয় কিছু তথ্য। আরও কিছু জানতে সরাসরি আমাদের সঙ্গে যোগাযোগ করুন।</p></div>
+        <div class="faq-list reveal">
+          <div class="faq-item active"><button class="faq-question" aria-expanded="true"><span>কফির দাম কত থেকে শুরু?</span><span>+</span></button><div class="faq-answer"><p>আমাদের কফির দাম শুরু মাত্র ৫৯ টাকা থেকে। অন্যান্য আইটেমের দাম জানতে সরাসরি যোগাযোগ করুন।</p></div></div>
+          <div class="faq-item"><button class="faq-question" aria-expanded="false"><span>Magic Coffee-তে কী ধরনের পরিবেশ পাব?</span><span>+</span></button><div class="faq-answer"><p>আমাদের লক্ষ্য হলো আরামদায়ক, উষ্ণ ও প্রশান্তিদায়ক পরিবেশ তৈরি করা, যেখানে আপনি নিশ্চিন্তে সময় কাটাতে পারবেন।</p></div></div>
+          <div class="faq-item"><button class="faq-question" aria-expanded="false"><span>বন্ধু বা পরিবারের সঙ্গে আসা যাবে?</span><span>+</span></button><div class="faq-answer"><p>অবশ্যই! বন্ধু, পরিবার, প্রিয়জন কিংবা একা—সবাইকে স্বাগতম।</p></div></div>
+          <div class="faq-item"><button class="faq-question" aria-expanded="false"><span>দোকান কখন খোলা থাকে?</span><span>+</span></button><div class="faq-answer"><p>আপনার প্রকৃত দোকানের সময় এখানে যুক্ত করুন। যাওয়ার আগে ফোন করে সময় নিশ্চিত করে নিতে পারেন।</p></div></div>
+          <div class="faq-item"><button class="faq-question" aria-expanded="false"><span>ঠিকানা বা লোকেশন কীভাবে পাব?</span><span>+</span></button><div class="faq-answer"><p>নিচের Contact অংশে আপনার সম্পূর্ণ ঠিকানা ও Google Maps লিংক যুক্ত করুন।</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy reveal">
+          <div class="eyebrow">We would love to see you</div><h2>Your peaceful corner is <span class="gold">waiting.</span></h2>
+          <p>এক কাপ কফির সঙ্গে সুন্দর কিছু মুহূর্ত কাটাতে আজই চলে আসুন Magic Coffee-তে। আপনার সঙ্গে দেখা হওয়ার অপেক্ষায়!</p>
+          <div class="contact-details">
+            <div class="contact-detail"><div class="feature-icon">⌖</div><div><strong>Our Location</strong><span>[আপনার দোকানের সম্পূর্ণ ঠিকানা এখানে লিখুন]</span></div></div>
+            <div class="contact-detail"><div class="feature-icon">☎</div><div><strong>Call Us</strong><a href="tel:+8801XXXXXXXXX">+880 1XXXXXXXXX</a></div></div>
+            <div class="contact-detail"><div class="feature-icon">◷</div><div><strong>Opening Hours</strong><span>[প্রতিদিনের খোলার ও বন্ধের সময় লিখুন]</span></div></div>
+          </div>
+        </div>
+        <div class="contact-panel reveal">
+          <h3>Come say hello.</h3><p>কোনো প্রশ্ন আছে? ফোন করুন অথবা সরাসরি আমাদের ক্যাফেতে চলে আসুন।</p>
+          <div class="hours"><span>Everyday</span><span>[Opening time – Closing time]</span></div>
+          <div class="hours"><span>Starting price</span><span>From ৳59</span></div>
+          <a class="btn btn-primary" href="tel:+8801XXXXXXXXX">Call Magic Coffee <span>↗</span></a>
+          <a class="btn btn-outline" href="https://maps.google.com/?q=Magic+Coffee" target="_blank" rel="noopener">Find Us on Google Maps <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner">
+    <a class="brand" href="#home"><span class="brand-mark">M</span><span class="brand-name">MAGIC <span>COFFEE</span></span></a>
+    <p>© <span id="year"></span> Magic Coffee. Made with warmth & ☕</p>
+    <div class="socials"><a href="#" aria-label="Facebook">Facebook</a><a href="#" aria-label="Instagram">Instagram</a></div>
+  </div></footer>
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+  <script>
+    const header = document.getElementById('header');
+    const backTop = document.getElementById('backTop');
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 30);
+      backTop.classList.toggle('show', window.scrollY > 500);
+    }, { passive: true });
+
+    menuToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.textContent = open ? '×' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.textContent = '☰';
+    }));
+
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const item = button.closest('.faq-item');
+        const isOpen = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(other => {
+          other.classList.remove('active');
+          other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          other.querySelector('.faq-answer').style.maxHeight = null;
+        });
+        if (!isOpen) {
+          item.classList.add('active');
+          button.setAttribute('aria-expanded', 'true');
+          const answer = item.querySelector('.faq-answer');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+    // Set the initially-open FAQ height.
+    const firstAnswer = document.querySelector('.faq-item.active .faq-answer');
+    if (firstAnswer) firstAnswer.style.maxHeight = firstAnswer.scrollHeight + 'px';
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
